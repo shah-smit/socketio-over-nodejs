@@ -18,12 +18,12 @@ function serverCallback(request, response) {
 }
 
 var io = require('socket.io').listen(app, {
-    log: true,
+//    log: true,
     origins: '*:*'
 });
 
 io.set('transports', [
-    // 'websocket',
+    'websocket',
     'xhr-polling',
     'jsonp-polling'
 ]);
