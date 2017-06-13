@@ -29,7 +29,7 @@ io.set('transports', [
 ]);
 
 var channels = {};
-
+var users = [];
 io.sockets.on('connection', function (socket) {
     var initiatorChannel = '';
     if (!io.isConnected) {
@@ -63,6 +63,7 @@ function onNewNamespace(channel, sender) {
         if (io.isConnected) {
             io.isConnected = false;
             socket.emit('connect', true);
+            socket.emit('user-video-stream', JSON.stringify(users));
         }
 
         socket.on('message', function (data) {
@@ -74,8 +75,11 @@ function onNewNamespace(channel, sender) {
         });
 
         socket.on('user-video-stream', function (data) {
-                //socket.broadcast.emit('user-video-stream', data.data);
-            socket.emit('user-video-stream', data.data);
+            users.push(data.data);
+
+                socket.broadcast.emit('user-video-stream', JSON.stringify(users));
+                
+            //socket.emit('user-video-stream', data.data);
         });
         
         socket.on('disconnect', function() {
