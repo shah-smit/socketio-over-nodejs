@@ -18,12 +18,12 @@ function serverCallback(request, response) {
 }
 
 var io = require('socket.io').listen(app, {
-    log: true,
+//    log: true,
     origins: '*:*'
 });
 
 io.set('transports', [
-    // 'websocket',
+    'websocket',
     'xhr-polling',
     'jsonp-polling'
 ]);
@@ -74,11 +74,8 @@ function onNewNamespace(channel, sender) {
         });
 
         socket.on('user-video-stream', function (data) {
-            if (data.sender == sender) {
-                if(!username) username = data.data.sender;
-                
-                socket.broadcast.emit('user-video-stream', data.data);
-            }
+                //socket.broadcast.emit('user-video-stream', data.data);
+            socket.emit('user-video-stream', data.data);
         });
         
         socket.on('disconnect', function() {
