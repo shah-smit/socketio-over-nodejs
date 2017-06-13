@@ -23,7 +23,7 @@ var io = require('socket.io').listen(app, {
 });
 
 io.set('transports', [
-    'websocket',
+    //'websocket',
     'xhr-polling',
     'jsonp-polling'
 ]);
