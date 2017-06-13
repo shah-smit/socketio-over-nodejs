@@ -74,7 +74,8 @@ function onNewNamespace(channel, sender) {
         });
 
         socket.on('user-video-stream', function (data) {
-                socket.broadcast.emit('user-video-stream', data.data);
+                //socket.broadcast.emit('user-video-stream', data.data);
+            socket.emit('user-video-stream', data.data);
         });
         
         socket.on('disconnect', function() {
