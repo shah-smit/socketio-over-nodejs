@@ -74,9 +74,6 @@ function onNewNamespace(channel, sender) {
         });
 
         socket.on('user-video-stream', function (data) {
-            if (data.sender == sender) {
-                if(!username) username = data.data.sender;
-                
                 socket.broadcast.emit('user-video-stream', data.data);
             }
         });
