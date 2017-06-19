@@ -75,7 +75,9 @@ function onNewNamespace(channel, sender) {
         });
 
         socket.on('user-video-stream', function (data) {
-            users.push(data.data);
+            if(!isInArray(users,data.data)){
+                users.push(data.data);
+            }
 
                 socket.broadcast.emit('user-video-stream', JSON.stringify(users));
                 
@@ -90,5 +92,14 @@ function onNewNamespace(channel, sender) {
         });
     });
 }
+
+function isInArray(users,newUser) {
+    found = false;
+  users.forEach(function(element) {
+      if(element.videoId == newUser.videoId) found = true;
+  }, this);
+  return found;
+}
+
 
 app.listen(process.env.PORT || 5000)
