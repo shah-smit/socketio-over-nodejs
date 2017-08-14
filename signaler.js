@@ -74,15 +74,15 @@ function onNewNamespace(channel, sender) {
             }
         });
 
-        socket.on('user-video-stream', function (data) {
-            if(!isInArray(users,data.data)){
-                users.push(data.data);
-            }
+        // socket.on('user-video-stream', function (data) {
+        //     if(!isInArray(users,data.data)){
+        //         users.push(data.data);
+        //     }
 
-                socket.broadcast.emit('user-video-stream', JSON.stringify(users));
+        //         socket.broadcast.emit('user-video-stream', JSON.stringify(users));
                 
-            //socket.emit('user-video-stream', data.data);
-        });
+        //     //socket.emit('user-video-stream', data.data);
+        // });
         
         socket.on('disconnect', function() {
             if(username) {
